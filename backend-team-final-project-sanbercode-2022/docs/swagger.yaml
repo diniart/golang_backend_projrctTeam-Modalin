@@ -1,0 +1,1453 @@
+definitions:
+  controllers.LoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  controllers.ProjectCount:
+    properties:
+      count:
+        type: integer
+      status:
+        type: string
+    type: object
+  controllers.ProjectsInput:
+    properties:
+      category_id:
+        type: string
+      description:
+        type: string
+      dueDate:
+        type: string
+      duration:
+        type: integer
+      id:
+        type: string
+      margin:
+        type: integer
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      periode:
+        type: integer
+      price:
+        type: integer
+      quantity:
+        type: integer
+      status:
+        type: string
+      user_id:
+        type: string
+    type: object
+  controllers.RegisterInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+    required:
+    - email
+    - password
+    - role
+    type: object
+  controllers.UserInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      status:
+        type: string
+    type: object
+  controllers.cartInput:
+    properties:
+      payment_status:
+        type: string
+    type: object
+  controllers.categoryInput:
+    properties:
+      category:
+        type: string
+    type: object
+  controllers.imageInput:
+    properties:
+      images_url:
+        type: string
+      projects_id:
+        type: string
+    type: object
+  models.CartItems:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      projects:
+        $ref: '#/definitions/models.Projects'
+      projects_id:
+        description: Relation
+        type: string
+      quantity:
+        type: integer
+      shopping_cart:
+        $ref: '#/definitions/models.ShoppingCart'
+      shopping_cart_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Category:
+    properties:
+      category:
+        type: string
+      id:
+        type: string
+      projects:
+        description: Relation
+        items:
+          $ref: '#/definitions/models.Projects'
+        type: array
+    type: object
+  models.Images:
+    properties:
+      id:
+        type: string
+      images_url:
+        type: string
+      projects:
+        $ref: '#/definitions/models.Projects'
+      projects_id:
+        description: Relation
+        type: string
+    type: object
+  models.Installment:
+    properties:
+      amount:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: string
+      projects:
+        $ref: '#/definitions/models.Projects'
+      projects_id:
+        description: Relation
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.InstallmentInput:
+    properties:
+      status:
+        type: string
+    type: object
+  models.Projects:
+    properties:
+      cart_items:
+        items:
+          $ref: '#/definitions/models.CartItems'
+        type: array
+      category:
+        $ref: '#/definitions/models.Category'
+      category_id:
+        description: Relation
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      dueDate:
+        type: string
+      duration:
+        type: integer
+      id:
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.Images'
+        type: array
+      installment:
+        items:
+          $ref: '#/definitions/models.Installment'
+        type: array
+      margin:
+        type: integer
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      periode:
+        type: integer
+      price:
+        type: integer
+      quantity:
+        type: integer
+      status:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        type: string
+    type: object
+  models.ShoppingCart:
+    properties:
+      cartItems:
+        description: Relation
+        items:
+          $ref: '#/definitions/models.CartItems'
+        type: array
+      created_at:
+        type: string
+      id:
+        type: string
+      payment_status:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        type: string
+    type: object
+  models.Transaction:
+    properties:
+      created_at:
+        type: string
+      credit:
+        type: integer
+      debit:
+        type: integer
+      id:
+        type: string
+      installment_id:
+        type: string
+      project_id:
+        type: string
+      sender:
+        type: string
+      shopping_cart_id:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        description: Relation
+        type: string
+    type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        maxLength: 255
+        minLength: 3
+        type: string
+      id:
+        type: string
+      password:
+        maxLength: 255
+        minLength: 6
+        type: string
+      projects:
+        items:
+          $ref: '#/definitions/models.Projects'
+        type: array
+      role:
+        description: '3 roles : admin, investor, investee'
+        type: string
+      shoppingCart:
+        items:
+          $ref: '#/definitions/models.ShoppingCart'
+        type: array
+      status:
+        type: string
+      transactions:
+        items:
+          $ref: '#/definitions/models.Transaction'
+        type: array
+      updated_at:
+        type: string
+      userProfile:
+        $ref: '#/definitions/models.UserProfile'
+        description: Relation
+    type: object
+  models.UserProfile:
+    properties:
+      address:
+        type: string
+      bank_account_number:
+        type: integer
+      bank_name:
+        type: string
+      city:
+        maxLength: 255
+        minLength: 1
+        type: string
+      created_at:
+        type: string
+      fullname:
+        maxLength: 255
+        minLength: 1
+        type: string
+      gender:
+        maxLength: 255
+        minLength: 1
+        type: string
+      id:
+        type: string
+      ktp:
+        type: integer
+      phone:
+        maxLength: 20
+        minLength: 5
+        type: string
+      profile_url:
+        type: string
+      province:
+        maxLength: 255
+        minLength: 1
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+paths:
+  /CartItems/{id}:
+    patch:
+      description: Update CartItems by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: CartItems id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CartItems'
+      security:
+      - BearerToken: []
+      summary: Update CartItems.
+      tags:
+      - CartItems
+  /admin/user/{id}:
+    patch:
+      description: Update User by id.
+      parameters:
+      - description: User id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      security:
+      - BearerToken: []
+      summary: Update User.
+      tags:
+      - admin
+  /admin/users:
+    get:
+      description: Get a list of UserProfile.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserProfile'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get a list of UserProfile.
+      tags:
+      - admin
+  /admin/users/investee:
+    get:
+      description: Get a list of UserProfile by Investee.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserProfile'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get a list of UserProfile by Investee.
+      tags:
+      - admin
+  /admin/users/investor:
+    get:
+      description: Get a list of UserProfile by Investor.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserProfile'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get a list of UserProfile by Investor.
+      tags:
+      - admin
+  /cart:
+    get:
+      description: Get an Cart by User id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ShoppingCart'
+      security:
+      - BearerToken: []
+      summary: Get Cart.
+      tags:
+      - Cart
+    post:
+      consumes:
+      - application/json
+      description: Admin can create a new cart.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ShoppingCart'
+      security:
+      - BearerToken: []
+      summary: Create New Cart.
+      tags:
+      - Cart
+  /cart-order:
+    get:
+      description: Get Cart Payment Status "order".
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ShoppingCart'
+      security:
+      - BearerToken: []
+      summary: Get Cart Payment Status "order".
+      tags:
+      - Cart
+  /cart/{id}:
+    patch:
+      description: Update Cart by id.
+      parameters:
+      - description: Cart id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update cart
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.cartInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ShoppingCart'
+      security:
+      - BearerToken: []
+      summary: Update Cart.
+      tags:
+      - Cart
+  /cartItems:
+    get:
+      description: Get a list of CartItems.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.CartItems'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get all cartItem.
+      tags:
+      - CartItems
+    post:
+      description: Creating a new CartItems.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CartItems'
+      security:
+      - BearerToken: []
+      summary: Create New CartItems.
+      tags:
+      - CartItems
+  /cartItems/{id}:
+    delete:
+      description: Delete a Cart item by id.
+      parameters:
+      - description: CartItem id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Cart item.
+      tags:
+      - CartItems
+    get:
+      description: Get an CartItems by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: CartItems ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CartItems'
+      security:
+      - BearerToken: []
+      summary: Get CartItems.
+      tags:
+      - CartItems
+  /carts:
+    get:
+      description: Get a list of Carts.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ShoppingCart'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get all Carts.
+      tags:
+      - Cart
+  /category:
+    get:
+      description: Get a list of Category.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Category'
+            type: array
+      summary: Get all Categories.
+      tags:
+      - Category
+    post:
+      consumes:
+      - application/json
+      description: Admin can create a new category.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+      security:
+      - BearerToken: []
+      summary: Create New Category.
+      tags:
+      - Category
+  /category/{id}:
+    delete:
+      description: Delete a Category by id.
+      parameters:
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Category.
+      tags:
+      - Category
+    get:
+      description: Get a Category by id.
+      parameters:
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+      summary: Get Category.
+      tags:
+      - Category
+    patch:
+      description: Update Category by id.
+      parameters:
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.categoryInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+      security:
+      - BearerToken: []
+      summary: Update Category.
+      tags:
+      - Category
+  /images:
+    post:
+      consumes:
+      - application/json
+      description: Admin can create a new image.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Images'
+      security:
+      - BearerToken: []
+      summary: Create New Image.
+      tags:
+      - Images
+  /images/{id}:
+    delete:
+      description: Delete a Image by id.
+      parameters:
+      - description: Image id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Image.
+      tags:
+      - Images
+    get:
+      description: Get Images by Project id.
+      parameters:
+      - description: Image id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Images'
+      summary: Get Images by Project ID.
+      tags:
+      - Images
+    patch:
+      description: Update Image by id.
+      parameters:
+      - description: Image id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update images
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.imageInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Images'
+      security:
+      - BearerToken: []
+      summary: Update Image.
+      tags:
+      - Images
+  /installment/{id}:
+    get:
+      description: Get all installment by project id.
+      parameters:
+      - description: 'Store Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Projects ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Installment'
+      security:
+      - BearerToken: []
+      summary: Get All Installment By ProjectID
+      tags:
+      - Installment
+  /installment/status/{id}:
+    patch:
+      description: Update Installment Status by Installment ID.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Installment ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      - description: the body to update installment status
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.InstallmentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Installment'
+      security:
+      - BearerToken: []
+      summary: Update Installment Status.
+      tags:
+      - Installment
+  /investor/{id}:
+    get:
+      description: Get all investor included in a project by project id.
+      parameters:
+      - description: 'Store Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Projects ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Installment'
+      security:
+      - BearerToken: []
+      summary: Get All Investor included in a project By ProjectID
+      tags:
+      - Investor
+  /login:
+    post:
+      description: Logging in to get jwt token to access admin or user api by roles.
+      parameters:
+      - description: the body to login a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as as user.
+      tags:
+      - Authentication
+  /projects:
+    get:
+      description: Get a list of Projects.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Projects'
+            type: array
+      summary: Get all projects.
+      tags:
+      - Projects
+    post:
+      description: Creating a new projects.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to create a new projects
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ProjectsInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Projects'
+      security:
+      - BearerToken: []
+      summary: Create New Projects.
+      tags:
+      - Projects
+  /projects/{id}:
+    delete:
+      description: Delete a projects by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Projects ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete One Projects.
+      tags:
+      - Projects
+    get:
+      description: Get an projects by id.
+      parameters:
+      - description: 'Store Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Projects ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Projects'
+      security:
+      - BearerToken: []
+      summary: Get Projects.
+      tags:
+      - Projects
+    patch:
+      description: Update Projects by ID.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Projects ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      - description: the body to update projects
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ProjectsInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Projects'
+      security:
+      - BearerToken: []
+      summary: Update Projects.
+      tags:
+      - Projects
+  /projects/buy:
+    get:
+      description: Get quantity Projects buy that was bought by using token .
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Projects'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get all projects buy by token investor.
+      tags:
+      - Projects
+  /projects/count:
+    get:
+      description: Get Projects count group by project status .
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.ProjectCount'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get projects count group by project status.
+      tags:
+      - Projects
+  /projects/filter:
+    get:
+      description: 'Get some projects according to the filter conditions. Add "?limit=&status="
+        to the URL to specify the filter conditions. Example: /projects/filter?limit=4&status=running'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Projects'
+            type: array
+      summary: Get projects according to the filter conditions.
+      tags:
+      - Projects
+  /projects/investee/{userid}:
+    get:
+      description: Get an projects by user id.
+      parameters:
+      - description: Projects ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Projects'
+      summary: Get Projects.
+      tags:
+      - Projects
+  /projects/sold:
+    get:
+      description: Get all list of Projects that was sold.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Projects'
+            type: array
+      summary: Get all projects sold.
+      tags:
+      - Projects
+  /projects/sold/:id:
+    get:
+      description: Get quantity Projects that was sold by using param id.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Projects'
+            type: array
+      summary: Get projects sold by param id.
+      tags:
+      - Projects
+  /projects/some:
+    get:
+      description: 'Get some projects according to the limit. Add "?limit=" to the
+        URL to specify the limit. Example: /projects/some?limit=4'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Projects'
+            type: array
+      summary: Get some projects according to the limit.
+      tags:
+      - Projects
+  /projects/status/{id}:
+    patch:
+      description: Update Projects Status by ID.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Projects ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      - description: the body to update projects
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ProjectsInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Projects'
+      security:
+      - BearerToken: []
+      summary: Update Projects Status.
+      tags:
+      - Projects
+  /register:
+    post:
+      description: registering a user from public access.
+      parameters:
+      - description: the body to register a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a user.
+      tags:
+      - Authentication
+  /transaction:
+    get:
+      description: Investor and Investee can get all transaction data by user ID
+      parameters:
+      - description: 'Store Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+      security:
+      - BearerToken: []
+      summary: investor and investee can get all transaction history data by user
+        id in token.
+      tags:
+      - Transaction
+    post:
+      consumes:
+      - application/json
+      description: Investor and Investee can create a new transaction data.
+      parameters:
+      - description: 'Store Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+      security:
+      - BearerToken: []
+      summary: Create New Transaction Data By Role Investor and Investee.
+      tags:
+      - Transaction
+  /transaction/{id}:
+    patch:
+      description: Update Transactions by ID.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Transaction ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+      security:
+      - BearerToken: []
+      summary: Update Transactions.
+      tags:
+      - Transaction
+  /transaction/filter:
+    get:
+      description: 'Get some projects according to the filter conditions. Add "?status="
+        to the URL to specify the filter conditions. Example: /transaction/filter?status=ProsesPencairan'
+      parameters:
+      - description: 'Store Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Transaction'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get transactions according to the filter conditions.
+      tags:
+      - Transaction
+  /userProfile/{id}:
+    get:
+      description: Get an UserProfile by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: UserProfile id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserProfile'
+      security:
+      - BearerToken: []
+      summary: Get UserProfile.
+      tags:
+      - UserProfile
+    patch:
+      description: Update UserProfile by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: UserProfile id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserProfile'
+      security:
+      - BearerToken: []
+      summary: Update UserProfile.
+      tags:
+      - UserProfile
+swagger: "2.0"
